@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoThreads - Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #e0f2e9, #c8e6c9); /* Soft gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .invoice-container {
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invoice-container">
+        <h1>EcoThreads Invoice</h1>
+        <p>Subtotal: $<span id="subtotal"></span></p>
+        <p>Tax: $<span id="tax"></span></p>
+        <p>Discount: -$<span id="discount"></span></p>
+        <p><strong>Total: $<span id="total"></span></strong></p>
+    </div>
+
+    <script>
+        // Retrieve values from localStorage and display them on the invoice page
+        document.getElementById('subtotal').innerText = localStorage.getItem('subtotal');
+        document.getElementById('tax').innerText = localStorage.getItem('tax');
+        document.getElementById('discount').innerText = localStorage.getItem('discount');
+        document.getElementById('total').innerText = localStorage.getItem('total');
+    </script>
+
+</body>
+</html>

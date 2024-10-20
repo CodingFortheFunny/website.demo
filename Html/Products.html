@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoThreads - Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #e0f2e9, #c8e6c9); /* Soft gradient background */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .product {
+            background-color: #fff;
+            padding: 20px;
+            margin: 10px;
+            width: 30%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-radius: 10px;
+        }
+        .product img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+        .description {
+            color: #555;
+        }
+        .price {
+            color: #4CAF50;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .quantity {
+            margin: 10px 0;
+        }
+        .checkout {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>EcoThreads - Products</h1>
+
+        <div class="product-grid" id="product-grid">
+            <!-- Products will be inserted here by JavaScript -->
+        </div>
+
+        <button class="checkout" onclick="checkout()">CheckOut</button>
+    </div>
+
+    <script>
+        // Global arrays to track product information and quantity
+        const products = [
+            { name: 'Eco-friendly T-Shirt', description: '100% organic cotton', price: 20, img: 'tshirt.jpg', quantity: 0 },
+            { name: 'Recycled Wool Sweater', description: 'Made from recycled wool', price: 45, img: 'sweater.jpg', quantity: 0 },
+            { name: 'Sustainable Jeans', description: 'Eco-friendly denim', price: 50, img: 'jeans.jpg', quantity: 0 },
+            { name: 'Bamboo Sunglasses', description: 'Handcrafted from bamboo', price: 30, img: 'sunglasses.jpg', quantity: 0 },
+            { name: 'Reusable Tote Bag', description: 'Organic cotton tote', price: 10, img: 'tote.jpg', quantity: 0 },
+            { name: 'Vegan Leather Wallet', description: 'Cruelty-free wallet', price: 25, img: 'wallet.jpg', quantity: 0 },
+            { name: 'Hemp Fabric Hat', description: 'Eco-friendly hat', price: 15, img: 'hat.jpg', quantity: 0 },
+            { name: 'Organic Cotton Socks', description: 'Super soft and sustainable', price: 8, img: 'socks.jpg', quantity: 0 },
+            { name: 'Natural Fiber Scarf', description: 'Made from natural fibers', price: 22, img: 'scarf.jpg', quantity: 0 },
+        ];
+
+        // User-defined function to display products dynamically
+        function displayProducts() {
+            let productGrid = document.getElementById('product-grid');
+            products.forEach((product, index) => {
+                productGrid.innerHTML += `
+                    <div class="product">
+                        <img src="${product.img}" alt="${product.name}">
+                        <h2>${product.name}</h2>
+                        <p class="description">${product.description}</p>
+                        <p class="price">$${product.price}</p>
+                        <label for="quantity-${index}">Quantity:</label>
+                        <input type="number" id="quantity-${index}" class="quantity" min="0" value="0" onchange="updateQuantity(${index})">
+                    </div>
+                `;
+            });
+        }
+
+        // Update quantity function
+        function updateQuantity(index) {
+            let quantityInput = document.getElementById(`quantity-${index}`);
+            products[index].quantity = parseInt(quantityInput.value);
+        }
+
+        // Checkout function to calculate totals, taxes, and redirect to invoice
+        function checkout() {
+            let subtotal = 0;
+            let taxRate = 0.10; // 10% tax
+            let discount = 0.05; // 5% discount for simplicity
+
+            products.forEach(product => {
+                subtotal += product.price * product.quantity;
+            });
+
+            let tax = subtotal * taxRate;
+            let discountAmount = subtotal * discount;
+            let total = subtotal + tax - discountAmount;
+
+            // Store values for the invoice page (using localStorage)
+            localStorage.setItem('subtotal', subtotal.toFixed(2));
+            localStorage.setItem('tax', tax.toFixed(2));
+            localStorage.setItem('discount', discountAmount.toFixed(2));
+            localStorage.setItem('total', total.toFixed(2));
+
+            // Redirect to invoice page
+            window.location.href = 'invoice.html';
+        }
+
+        // Call displayProducts to render products on page load
+        displayProducts();
+    </script>
+
+</body>
+</html>
