@@ -1,0 +1,112 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>EcoThreads Login</title>  
+	<style>
+	body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #e0f2e9, #c8e6c9); /* Soft gradient background */
+            display: flex;
+	    justify-content: center;
+            align-items: center;
+            height: 100vh;
+	    
+        }
+	
+	.container {
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #2c6d4e; /* Dark green color */
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 300px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #4f9a6b;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            color: #3e8d64;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<img src="../Images/Logo.jpg" alt="logo" height="">
+<h1>Login Form</h1>
+    <!-- Login form -->
+    <form id="loginForm"><br>
+        <label for="username">Username:</label>
+        <input type="text" id="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" required><br><br>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- Error message display -->
+    <p id="errorMessage" style="color:red;"></p>
+</div>
+    <script>
+        // Predefined valid credentials
+        const validUsername = "user";
+        const validPassword = "password";
+
+        // Track login attempts
+        let loginAttempts = 0;
+
+        // Add event listener for form submission
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from refreshing the page
+            
+            // Store input values
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            
+            // Check credentials
+            if (username === validUsername && password === validPassword) {
+                alert("Login successful!");
+                window.location.href = "products.html"; // Redirect to products page
+            } else {
+                loginAttempts++;
+                document.getElementById("errorMessage").textContent = 
+                    `Login failed. Attempt ${loginAttempts}/3.`;
+
+                // If 3 failed attempts, redirect to error page
+                if (loginAttempts >= 3) {
+                    alert("Too many failed attempts. Redirecting to error page.");
+                    window.location.href = "error.html"; // Redirect to error page
+                }
+            }
+        });
+    </script>
+
+ 
+
+
+  <footer>
+        &copy; 2024 EcoThreads. All Rights Reserved.
+  </footer>
+</body>
+</html>
